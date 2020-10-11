@@ -26,9 +26,9 @@ jobs:
       #- run: npm run style
       #- run: npm run lint
 
-      - run: npm run build ch4 --prod
+      - run: npm run build:prod
       - run: npm run test --watch=false
-      - run: npx ng e2e
+      - run: npm run e2e
 
       - run:
           name: Tar & Gzip compiled app
