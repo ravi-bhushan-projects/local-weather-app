@@ -23,8 +23,8 @@ jobs:
           paths:
             - ~/.npm
 
-      - run: npm run style
-      - run: npm run lint
+      #- run: npm run style
+      #- run: npm run lint
 
       - run: npm run build ch4 --prod
       - run: npm run test --watch=false
