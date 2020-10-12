@@ -10,7 +10,19 @@ import { CurrentWeather } from '../current-weather/current-weather';
 })
 export class WeatherService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
+
+  private static transformToCurrentWeather(data: CurrentWeatherData): CurrentWeather {
+    return {
+      city: data.name,
+      country: data.sys.country,
+      date: data.dt * 1000,
+      image: `${environment.baseUrl}openweathermap.org/img/w/${data.weather[0].icon}.png`,
+      temperature: data.main.temp,
+      description: data.weather[0].description,
+    };
+  }
 
   getCurrentWeather(city: string, country: string): Observable<CurrentWeather> {
     const uriParams = new HttpParams()
@@ -21,19 +33,8 @@ export class WeatherService {
       `${environment.baseUrl}api.openweathermap.org/data/2.5/weather`,
       { params: uriParams }
     ).pipe(
-      map(data => this.transformToCurrentWeather(data))
+      map(data => WeatherService.transformToCurrentWeather(data))
     );
-  }
-
-  private transformToCurrentWeather(data: CurrentWeatherData): CurrentWeather {
-    return {
-      city: data.name,
-      country: data.sys.country,
-      date: data.dt * 1000,
-      image: `${environment.baseUrl}openweathermap.org/img/w/${data.weather[0].icon}.png`,
-      temperature: data.main.temp,
-      description: data.weather[0].description,
-    }
   }
 }
 
