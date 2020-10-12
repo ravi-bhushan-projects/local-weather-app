@@ -7,7 +7,7 @@
     <span>{{currentWeather.date | date: 'medium'}}</span>
   </div>
   <div>
-    <img [src]="currentWeather.image">
+    <img alt="Current Weather Image" [src]="currentWeather.image">
     <span>{{currentWeather.temperature | number:'1.0-0'}}K</span>
   </div>
   <div>

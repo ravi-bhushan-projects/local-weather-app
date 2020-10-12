@@ -12,12 +12,12 @@ describe('CurrentWeatherComponent', () => {
   beforeEach(async () => {
     const weatherServiceSpy = jasmine.createSpyObj('WeatherService', ['getCurrentWeather']);
     await TestBed.configureTestingModule({
-      declarations: [ CurrentWeatherComponent ],
+      declarations: [CurrentWeatherComponent],
       providers: [{
         provide: WeatherService, useValue: weatherServiceSpy
       }]
     })
-    .compileComponents();
+      .compileComponents();
     weatherServiceMock = TestBed.inject(WeatherService) as any;
   });
 
