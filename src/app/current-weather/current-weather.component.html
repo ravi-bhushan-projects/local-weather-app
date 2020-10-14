@@ -2,15 +2,26 @@
   No Data
 </div>
 <div *ngIf="currentWeather">
-  <div>
-    <span>{{currentWeather.city}}, {{currentWeather.country}} </span>
-    <span>{{currentWeather.date | date: 'medium'}}</span>
+  <div fxLayout="row">
+    <div class="mat-title no-margin" fxFlex="66%">
+      {{currentWeather.city}}, {{currentWeather.country}}
+    </div>
+    <div class="mat-h3 no-margin right" fxFlex>
+      {{currentWeather.date | date: 'EEEE'}}<br>
+      {{currentWeather.date | date: 'MMM d'}}{{getOrdinal(currentWeather.date)}}
+    </div>
   </div>
-  <div>
-    <img alt="Current Weather Image" [src]="currentWeather.image">
-    <span>{{currentWeather.temperature | number:'1.0-0'}}K</span>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="60%">
+      <img style="zoom: 175%" [src]="currentWeather.image" [alt]="currentWeather.description">
+    </div>
+    <div class="no-margin right" fxFlex>
+      <p class="mat-display-3">
+        {{currentWeather.temperature | number:'1.0-0'}}<span class="mat-display-1angu unit">K</span>
+      </p>
+    </div>
   </div>
-  <div>
+  <div fxLayoutAlign="center">
     {{currentWeather.description}}
   </div>
 </div>
