@@ -24,14 +24,29 @@ export class WeatherService {
     };
   }
 
-  getCurrentWeather(city: string, country: string): Observable<CurrentWeather> {
+  getCurrentWeather(search: string | number, country?: string): Observable<CurrentWeather> {
+    let uriParams = new HttpParams();
+    if (typeof search === 'string') {
+      uriParams = uriParams.set('q', country ? `${search},${country}` : search);
+    } else {
+      uriParams = uriParams.set('zip', 'search');
+    }
+    return this.getCurrentWeatherHelper(uriParams);
+  }
+
+  getCurrentWeatherByCoords(coords: Coordinates): Observable<CurrentWeather> {
     const uriParams = new HttpParams()
-      .set('q', `${city},${country}`)
-      .set('appId', environment.appId);
+      .set('lat', coords.latitude.toString())
+      .set('lon', coords.longitude.toString());
+    return this.getCurrentWeatherHelper(uriParams);
+  }
+
+  getCurrentWeatherHelper(uriParams: HttpParams): Observable<CurrentWeather> {
+    uriParams = uriParams.set('appId', environment.appId);
 
     return this.httpClient.get<CurrentWeatherData>(
       `${environment.baseUrl}api.openweathermap.org/data/2.5/weather`,
-      { params: uriParams }
+      {params: uriParams}
     ).pipe(
       map(data => WeatherService.transformToCurrentWeather(data))
     );

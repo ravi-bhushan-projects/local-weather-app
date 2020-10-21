@@ -10,7 +10,8 @@
     "test:a11y": "pa11y --standard Section508 http://localhost:4200",
     "test:a11y:ci": "pa11y-ci",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
