@@ -1,27 +1,32 @@
-<div *ngIf="!currentWeather">
-  No Data
-</div>
-<div *ngIf="currentWeather">
+<div *ngIf="currentWeather$ | async as currentWeather; else loading">
   <div fxLayout="row">
     <div class="mat-title no-margin" fxFlex="66%">
-      {{currentWeather.city}}, {{currentWeather.country}}
+      {{ currentWeather.city }}, {{ currentWeather.country }}
     </div>
     <div class="mat-h3 no-margin right" fxFlex>
-      {{currentWeather.date | date: 'EEEE'}}<br>
-      {{currentWeather.date | date: 'MMM d'}}{{getOrdinal(currentWeather.date)}}
+      {{ currentWeather.date | date: "EEEE" }}<br />
+      {{ currentWeather.date | date: "MMM d" }}
+      {{ getOrdinal(currentWeather.date) }}
     </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
     <div fxFlex="60%">
-      <img style="zoom: 175%" [src]="currentWeather.image" [alt]="currentWeather.description">
+      <img
+        style="zoom: 175%"
+        [src]="currentWeather.image"
+        [alt]="currentWeather.description"
+      />
     </div>
     <div class="no-margin right" fxFlex>
       <p class="mat-display-3">
-        {{currentWeather.temperature | number:'1.0-0'}}<span class="mat-display-1angu unit">K</span>
+        {{ currentWeather.temperature | number: "1.0-0"
+        }}<span class="mat-display-1angu unit">&#8451;</span>
       </p>
     </div>
   </div>
   <div fxLayoutAlign="center">
-    {{currentWeather.description}}
+    {{ currentWeather.description }}
   </div>
 </div>
+
+<ng-template #loading> Loading... </ng-template>
